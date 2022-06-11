@@ -9,11 +9,11 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const { ic, barcode } = req.body;
+    const { ic, retailer_id, barcode } = req.body;
     const payload = await verifyToken(barcode);
 
     // @ts-ignore
-    const { retailer_id, oil_id } = payload;
+    const { oil_id } = payload;
 
     const dbNow = (): Date => dayjs().add(UTC, "hour").toDate();
     const today = new Date(dbNow().setUTCHours(0, 0, 0, 0));
@@ -75,8 +75,13 @@ export default async function handler(
           data: {
             date: today,
             customer: {
-              connect: {
-                ic,
+              connectOrCreate: {
+                where: {
+                  ic,
+                },
+                create: {
+                  ic,
+                },
               },
             },
             retailer: {
