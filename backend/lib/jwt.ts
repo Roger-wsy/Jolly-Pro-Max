@@ -2,9 +2,8 @@ import { jwtVerify, SignJWT } from "jose";
 import { nanoid } from "nanoid";
 import { TOKEN_SECRET } from "data/constant";
 
-export const generateToken = async (retailer_id: string, oil_id: string) => {
+export const generateToken = async (oil_id: string) => {
   const token = await new SignJWT({
-    retailer_id,
     oil_id,
   })
     .setProtectedHeader({ alg: "HS256" })

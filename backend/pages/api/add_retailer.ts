@@ -8,21 +8,15 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const { retailer_id, litre } = req.body;
+    const { name } = req.body;
 
-    const id = nanoid();
-
-    const barcode = await generateToken(retailer_id, id);
-
-    const oil = await prisma.oil.create({
+    await prisma.retailer.create({
       data: {
-        id,
-        litre,
-        barcode,
+        name,
       },
     });
 
-    return res.status(200).json({ oil, message: "ok" });
+    return res.status(200).json({ message: "ok" });
   } catch (error) {
     return res
       .status(400)
