@@ -14,14 +14,13 @@ export default async function handler(
 
     const id = nanoid();
 
-    const barcode = await generateToken(id);
+    // const barcode = await generateToken(id);
 
     const oil = await prisma.oil.create({
       data: {
         id,
         name,
         litre,
-        barcode,
       },
     });
 

@@ -204,7 +204,7 @@ const Home: NextPage = ({
               <div className="text-bold">{el?.name ?? "--"}</div>
               <div className="text-bold">{Number(el?.litre) ?? "--"}</div>
               <div className="text-blue-600 underline text-bold">
-                <Link href={`/barcode/${el.barcode}`}>
+                <Link href={`/barcode/${el.id}`}>
                   <a>Barcode</a>
                 </Link>
               </div>

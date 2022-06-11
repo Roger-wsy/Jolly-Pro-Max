@@ -46,7 +46,6 @@ model Oil {
   id          String        @id @default(cuid())
   name        String?
   litre       Decimal
-  barcode     String
   transaction Transaction[]
 }
 
