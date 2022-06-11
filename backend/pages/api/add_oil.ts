@@ -8,7 +8,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const { name, litre } = JSON.parse(req.body);
+    const { name, litre } = req.body;
 
     console.log(name, litre);
 
