@@ -11,6 +11,7 @@ import AddRetailerCard from "components/AddRetailerCard";
 import AddOilCard from "components/AddOilCard";
 import { Oil } from "@prisma/client";
 import Link from "next/link";
+import SupplyRetailerCard from "components/SupplyRetailerCard";
 const Home: NextPage = ({
   total_customer,
   total_retailer,
@@ -21,6 +22,7 @@ const Home: NextPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [showAddRetailerCard, setShowAddRetailerCard] = useState(0);
   const [showAddOilCard, setShowAddOilCard] = useState(0);
+  const [showSupplyRetailerCard, setShowSupplyRetailerCard] = useState(0);
   // console.log(total_oil_demand);
 
   return (
@@ -30,6 +32,11 @@ const Home: NextPage = ({
         setShow={setShowAddRetailerCard}
       />
       <AddOilCard show={showAddOilCard} setShow={setShowAddOilCard} />
+      <SupplyRetailerCard
+        show={showSupplyRetailerCard}
+        setShow={setShowSupplyRetailerCard}
+        retailers={retailers}
+      />
       <Head>
         <title>Jolly</title>
         <link rel="icon" href="/favicon.ico" />
@@ -214,18 +221,32 @@ const Home: NextPage = ({
         <div className="w-full mt-20 mb-10">
           <div className="flex items-center justify-between">
             <h2>Retailer</h2>
-            <button
-              onClick={(e) => {
-                setShowAddRetailerCard(1);
-              }}
-              className="box-border relative z-30 inline-flex items-center justify-center w-auto px-10 py-3 overflow-hidden font-bold text-white transition-all duration-300 bg-blue-600 rounded-md cursor-pointer active:scale-95 group ring-offset-2 ring-1 ring-blue-300 ring-offset-blue-200 hover:ring-offset-blue-500 ease focus:outline-none"
-            >
-              <span className="absolute bottom-0 right-0 w-8 h-20 -mb-8 -mr-5 transition-all duration-300 ease-out transform rotate-45 translate-x-1 bg-white opacity-10 group-hover:translate-x-0"></span>
-              <span className="absolute top-0 left-0 w-20 h-8 -mt-1 -ml-12 transition-all duration-300 ease-out transform -rotate-45 -translate-x-1 bg-white opacity-10 group-hover:translate-x-0"></span>
-              <span className="relative z-20 flex items-center text-base">
-                Add Retailer
-              </span>
-            </button>
+            <div className="flex gap-5">
+              <button
+                onClick={(e) => {
+                  setShowAddRetailerCard(1);
+                }}
+                className="box-border relative z-30 inline-flex items-center justify-center w-auto px-10 py-3 overflow-hidden font-bold text-white transition-all duration-300 bg-blue-600 rounded-md cursor-pointer active:scale-95 group ring-offset-2 ring-1 ring-blue-300 ring-offset-blue-200 hover:ring-offset-blue-500 ease focus:outline-none"
+              >
+                <span className="absolute bottom-0 right-0 w-8 h-20 -mb-8 -mr-5 transition-all duration-300 ease-out transform rotate-45 translate-x-1 bg-white opacity-10 group-hover:translate-x-0"></span>
+                <span className="absolute top-0 left-0 w-20 h-8 -mt-1 -ml-12 transition-all duration-300 ease-out transform -rotate-45 -translate-x-1 bg-white opacity-10 group-hover:translate-x-0"></span>
+                <span className="relative z-20 flex items-center text-base">
+                  New Retailer
+                </span>
+              </button>
+              <button
+                onClick={(e) => {
+                  setShowSupplyRetailerCard(1);
+                }}
+                className="box-border relative z-30 inline-flex items-center justify-center w-auto px-10 py-3 overflow-hidden font-bold text-white transition-all duration-300 bg-blue-600 rounded-md cursor-pointer active:scale-95 group ring-offset-2 ring-1 ring-blue-300 ring-offset-blue-200 hover:ring-offset-blue-500 ease focus:outline-none"
+              >
+                <span className="absolute bottom-0 right-0 w-8 h-20 -mb-8 -mr-5 transition-all duration-300 ease-out transform rotate-45 translate-x-1 bg-white opacity-10 group-hover:translate-x-0"></span>
+                <span className="absolute top-0 left-0 w-20 h-8 -mt-1 -ml-12 transition-all duration-300 ease-out transform -rotate-45 -translate-x-1 bg-white opacity-10 group-hover:translate-x-0"></span>
+                <span className="relative z-20 flex items-center text-base">
+                  Supply Retailer
+                </span>
+              </button>
+            </div>
           </div>
         </div>
         <div className="grid w-full grid-cols-4 gap-5 rounded-t-md">
@@ -261,6 +282,8 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async () => {
   const total_customer = await prisma.customer.count();
   const total_retailer = await prisma.retailer.count();
+  const supply = await prisma.supply.findMany();
+  console.log(supply);
 
   const oils = await prisma.oil.findMany();
 
