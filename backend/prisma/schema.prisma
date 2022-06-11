@@ -2,10 +2,54 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+  // previewFeatures = ["referentialIntegrity", "dataProxy"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  // url                  = "mysql://127.0.0.1:3309/dengueapi"
+  referentialIntegrity = "prisma"
+}
+
+model Retailer {
+  id          String        @id @default(cuid())
+  name        String?
+  address     String?
+  transaction Transaction[]
+  get_supply  Supply[]
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  date        DateTime
+  customer    Customer @relation(fields: [customer_id], references: [id])
+  retailer    Retailer @relation(fields: [retailer_id], references: [id])
+  oil         Oil      @relation(fields: [oil_id], references: [id])
+  customer_id String
+  retailer_id String
+  oil_id      String
+}
+
+model Customer {
+  id          String        @id @default(cuid())
+  ic          String        @unique
+  name        String?
+  transaction Transaction[]
+}
+
+model Oil {
+  id          String        @id @default(cuid())
+  litre       Decimal
+  transaction Transaction[]
+}
+
+model Supply {
+  id          String   @id @default(cuid())
+  retailer    Retailer @relation(fields: [retailer_id], references: [id])
+  litre       Decimal
+  date        DateTime
+  retailer_id String
 }
