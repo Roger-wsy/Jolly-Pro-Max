@@ -13,10 +13,7 @@ module.exports = {
         "3xl": "1920px",
       },
       fontFamily: {
-        inter: ["Inter", fontFamily.sans],
-        ibm: ["IBM Plex Sans", fontFamily.serif],
-        roboto: ["Roboto", fontFamily.serif],
-        poppins: ["Poppins", fontFamily.sans],
+        serif: ["Source Sans Pro", fontFamily.serif],
       },
     },
   },
