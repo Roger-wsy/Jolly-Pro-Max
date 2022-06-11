@@ -22,7 +22,7 @@ const Home: NextPage = ({
           Jolly
         </nav>
         <div className="h-[80vh] w-full flex items-center justify-center">
-          <Barcode value={id} width={0.5} displayValue={true} />
+          <Barcode value={id} width={2} displayValue={true} />
         </div>
       </main>
 
