@@ -22,6 +22,8 @@ model Retailer {
   get_supply  Supply[]
 }
 
+// only store 1 oil transaction
+// if user buy second type of oil, will create another oil transaction
 model Transaction {
   id          String   @id @default(cuid())
   date        DateTime
@@ -43,6 +45,7 @@ model Customer {
 model Oil {
   id          String        @id @default(cuid())
   litre       Decimal
+  barcode     String
   transaction Transaction[]
 }
 
