@@ -107,7 +107,7 @@ const SupplyRetailerCard = ({ show, setShow, retailers }: any) => {
                   disabled={uploading}
                   className="px-5 py-2 font-medium text-white transition-all duration-150 bg-black border-2 border-black rounded-md disabled:bg-opacity-10 disabled:border-0 disabled:hover:bg-black disabled:hover:bg-opacity-10 disabled:bg-black disabled:text-white disabled:hover:text-white hover:bg-white hover:text-black"
                 >
-                  Create
+                  Supply
                 </button>
                 <button
                   type="button"

@@ -10,10 +10,6 @@ export default async function handler(
 ) {
   try {
     const { ic, retailer_id, barcode } = req.body;
-    const payload = await verifyToken(barcode);
-
-    // @ts-ignore
-    const { oil_id } = payload;
 
     const dbNow = (): Date => dayjs().add(UTC, "hour").toDate();
     const today = new Date(dbNow().setUTCHours(0, 0, 0, 0));
@@ -59,7 +55,7 @@ export default async function handler(
               },
               oil: {
                 connect: {
-                  id: oil_id,
+                  id: barcode,
                 },
               },
             },
@@ -91,7 +87,7 @@ export default async function handler(
             },
             oil: {
               connect: {
-                id: oil_id,
+                id: barcode,
               },
             },
           },
@@ -101,6 +97,8 @@ export default async function handler(
           .json({ verified: true, message: "quota available" });
       });
   } catch (error) {
+    console.log(error);
+
     return res
       .status(400)
       .json({ error, verified: false, message: "unable to perform task" });
