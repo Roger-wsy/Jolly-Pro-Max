@@ -257,12 +257,14 @@ const Home: NextPage = ({
         </div>
         <div className="w-full">
           {retailers?.map((el: any) => (
-            <div className="grid w-full grid-cols-4 gap-5 rounded-t-md">
-              <div className="text-bold">{el?.id}</div>
-              <div className="text-bold">{el?.name ?? "--"}</div>
-              <div className="text-bold">Supply / Demand</div>
-              <div className="text-bold">Demand / Supply</div>
-            </div>
+            <Link href={`/retailer/${el?.id}`} passHref key={el?.id}>
+              <div className="grid w-full grid-cols-4 gap-5 rounded-t-md">
+                <div className="text-bold">{el?.id}</div>
+                <div className="text-bold">{el?.name ?? "--"}</div>
+                <div className="text-bold">Supply / Demand</div>
+                <div className="text-bold">Demand / Supply</div>
+              </div>
+            </Link>
           ))}
         </div>
       </main>
