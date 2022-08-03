@@ -14,7 +14,7 @@
     "next": "latest",
     "react": "18.1.0",
     "react-barcode": "^1.4.1",
-    "react-chartjs-2": "^4.2.0",
+    "react-chartjs-2": "^4.3.0",
     "react-dom": "18.1.0"
   },
   "devDependencies": {
